@@ -8,6 +8,9 @@ function toggleCustomModel() {
         //document.getElementById("model-dropdown").innerHTML = "<input value='custom'>Custom</input>";
         //print to console, "if ran"
         document.getElementById("params-custom").disabled = false;
+        // change the placeholder text
+        document.getElementById("params-custom").placeholder = "Enter custom parameters";
+        
     }
     else { 
         document.getElementById("params-custom").disabled = true;
