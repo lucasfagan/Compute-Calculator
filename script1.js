@@ -7,14 +7,18 @@ function toggleCustomModel() {
     if (modelDropdown.value === "custom") {
         //document.getElementById("model-dropdown").innerHTML = "<input value='custom'>Custom</input>";
         //print to console, "if ran"
-        console.log("if ran");
+        document.getElementById("params-custom").disabled = false;
+    }
+    else { 
+        document.getElementById("params-custom").disabled = true;
+        if (modelDropdown.value === "gpt-3") {
+            var model = new Model("GPT-3", 175000000000, 500000000000);
+            //print to console, "else if ran"
+            console.log("else if ran");
+        }
     }
     //else if the model dropdown is GPT-3
-    else if (modelDropdown.value === "gpt-3") {
-        var model = new Model("GPT-3", 175000000000, 500000000000);
-        //print to console, "else if ran"
-        console.log("else if ran");
-    }
+    
 
 
 }
@@ -26,5 +30,9 @@ function toggleCustomModel() {
     //if the compute dropdown is set to custom, change the html to show the input box
     if (computeDropdown.value === "custom") {
         
-    
-    }}
+        document.getElementById("compute-custom-input").disabled = false;
+    } else {
+        document.getElementById("compute-custom-input").disabled = true;
+    }
+
+}
