@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+  <head> 
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="compute-calculator.js"></script>
+    <script src="gpu.js"></script>
+    <script src="model.js"></script>
+    <script src="calculator.js"></script>
+  </head>
+  <body>
+    <h1 class="title">Choose your GPU and Model</h1>
+    <div class="container">
+      <div class="select-container">
+        <select id="gpu" class="select">
+          <option value="h100">H100</option>
+          <option value="a100">A100</option>
+          <option value="geforce rtx 3080">GeForce RTX 3080</option>
+          <option value="geforce rtx 3070">GeForce RTX 3070</option>
+          <option value="geforce rtx 2080 ti">GeForce RTX 2080 Ti</option>
+          <option value="tesla v100">Tesla V100</option>
+          <option value="tesla t4">Tesla T4</option>
+        </select>
+        <i class="fas fa-angle-down"></i>
+      </div>
+      <div class="select-container">
+        <select id="model" class="select">
+          <option value="gpt-3">GPT-3</option>
+          <option value="BERT-base">BERT-base</option>
+          <option value="resnet-50">ResNet-50</option>
+          <option value="vgg-16">VGG-16</option>
+          <option value="inceptionv3">InceptionV3</option>
+          <option value="LaMDA">LaMDA</option>
+          <option value="Test">Test</option>
+          <option value="Gopher">Gopher</option>
+          <option value="MT-NLG 530B">MT-NLG 530B</option>
+          <option value="chinchilla">Chinchilla</option>
+        </select>
+        <i class="fas fa-angle-down"></i>
+      </div>
+      <div class="textfield-container">
+        <label for="utilization-rate">Utilization Rate:</label>
+        <input type="text" id="utilization-rate" class="textfield">
+      </div>
+      <div class="textfield-container">
+        <label for="number-of-chips">Number of Chips:</label>
+        <input type="text" id="number-of-chips" class="textfield">
+      </div>
+      <button id="initalize" class="button">Compute Time</button>
+      <label id="result" class="result"></label>
+    </div>
+    <script>
+        document.getElementById("initalize").onclick = function() {
+
+            switch (document.getElementById("gpu").value) {
+                case "h100":
+                    var gpu = new GPU("H100", 1000e12);
+                    break;
+                case "a100":
+                    var gpu = new GPU("A100", 312e12);
+                    break;
+                case "geforce rtx 3080":
+                    var gpu = new GPU("GeForce RTX 3090", 30e12);
+                    break;
+                case "geforce rtx 3070":
+                    var gpu = new GPU("GeForce RTX 3070", 85e12);
+                    break;
+                case "geforce rtx 2080 ti":
+                    var gpu = new GPU("GeForce RTX 2080 Ti", 28.5e12);
+                    break;
+                case "tesla v100":
+                    var gpu = new GPU("Tesla V100", 125e12);
+                    break;
+                case "tesla t4":
+                    var gpu = new GPU("Tesla T4", 16e12);
+                    break;
+            }
+            switch (document.getElementById("model").value) {
+                case "gpt-3":
+                    var model = new Model("GPT-3", 175000000000, 500000000000);
+                    break;
+                case "BERT-base":
+                    var model = new Model("BERT-base",110000000,5000000000);
+                    break;
+                case "Test":
+                    var model = new Model("Test", 350e9, 1e12);
+                    break;
+                case "LaMDA":
+                    var model = new Model("LaMDA", 137000000000, 168000000000);
+                    break;
+                case "Gopher":
+                    var model = new Model("Gopher", 280e9, 300e9);
+                    break;
+                case "MT-NLG 530B":
+                    var model = new Model("MT-NLG 530B", 530e9, 270e9);
+                    break;
+                case "chinchilla":
+                    var model = new Model("Chinchilla", 70e9, 1.4e12);
+                    break;
+            }
+            var nc = document.getElementById("number-of-chips").value;
+            var util = document.getElementById("utilization-rate").value;
+            //get util float value
+            util = parseFloat(util);
+            const compute = new TransformerFLOPs(gpu,null,model,null,null,nc,util,null);
+            compute.calculateMissingVariable();
+            var seconds = compute.prettyTime(compute.time);
+            // set the innerHTML to "time required to train {model} on {gpu}: {pretty_time}"
+            document.getElementById("result").innerHTML = `Time required to train ${model.name} on ${gpu.name}: ${seconds}`;
+        }
+    </script>
+  </body>
+</html>
