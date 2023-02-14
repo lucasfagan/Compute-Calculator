@@ -1,57 +1,58 @@
 <!DOCTYPE html>
-<html>
-  <head> 
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
-    <script src="compute-calculator.js"></script>
-    <script src="gpu.js"></script>
-    <script src="model.js"></script>
-    <script src="calculator.js"></script>
-  </head>
-  <body>
-    <h1 class="title">Choose your GPU and Model</h1>
-    <div class="container">
-      <div class="select-container">
-        <select id="gpu" class="select">
-          <option value="h100">H100</option>
-          <option value="a100">A100</option>
-          <option value="geforce rtx 3080">GeForce RTX 3080</option>
-          <option value="geforce rtx 3070">GeForce RTX 3070</option>
-          <option value="geforce rtx 2080 ti">GeForce RTX 2080 Ti</option>
-          <option value="tesla v100">Tesla V100</option>
-          <option value="tesla t4">Tesla T4</option>
-        </select>
-        <i class="fas fa-angle-down"></i>
-      </div>
-      <div class="select-container">
-        <select id="model" class="select">
-          <option value="gpt-3">GPT-3</option>
-          <option value="BERT-base">BERT-base</option>
-          <option value="resnet-50">ResNet-50</option>
-          <option value="vgg-16">VGG-16</option>
-          <option value="inceptionv3">InceptionV3</option>
-          <option value="LaMDA">LaMDA</option>
-          <option value="Test">Test</option>
-          <option value="Gopher">Gopher</option>
-          <option value="MT-NLG 530B">MT-NLG 530B</option>
-          <option value="chinchilla">Chinchilla</option>
-        </select>
-        <i class="fas fa-angle-down"></i>
-      </div>
-      <div class="textfield-container">
-        <label for="utilization-rate">Utilization Rate:</label>
-        <input type="text" id="utilization-rate" class="textfield">
-      </div>
-      <div class="textfield-container">
-        <label for="number-of-chips">Number of Chips:</label>
-        <input type="text" id="number-of-chips" class="textfield">
-      </div>
-      <button id="initalize" class="button">Compute Time</button>
-      <label id="result" class="result"></label>
-    </div>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Compute Calculator</title>
+	<link rel="stylesheet" href="style.css">
+</head>
+<body>
+	<div class="container">
+		<h1>Compute Calculator</h1>
+		<form id="compute-form">
+			<label for="training-time">Training Time:</label>
+			<input type="number" id="training-time" name="training-time" placeholder="Enter training time (hours)">
+			<label for="model">Model:</label>
+			<select id="model" name="model">
+				<option value="" disabled selected>Select pre-determined model</option>
+				<option value="model-1">Model 1</option>
+				<option value="model-2">Model 2</option>
+				<option value="model-3">Model 3</option>
+				<option value="custom">Custom</option>
+			</select>
+			<div id="custom-fields" style="display:none">
+				<label for="parameters">Parameters:</label>
+				<input type="text" id="parameters" name="parameters" placeholder="Enter parameters">
+				<label for="tokens">Tokens:</label>
+				<input type="number" id="tokens" name="tokens" placeholder="Enter number of tokens">
+			</div>
+			<label for="compute-amount">Compute Amount:</label>
+			<select id="compute-amount" name="compute-amount">
+				<option value="" disabled selected>Select compute chip or custom</option>
+				<option value="A100">A100</option>
+				<option value="H100">H100</option>
+				<option value="V100">V100</option>
+				<option value="custom">Custom</option>
+			</select>
+			<div id="custom-compute-amount" style="display:none">
+				<label for="custom-teraflops">Custom Teraflops:</label>
+				<input type="number" id="custom-teraflops" name="custom-teraflops" placeholder="Enter custom teraflops">
+			</div>
+			<label for="chip-number">Number of Chips:</label>
+			<input type="number" id="chip-number" name="chip-number" placeholder="Enter number of chips">
+			<div class="slider-container">
+				<label for="utilization-rate">Utilization Rate:</label>
+				<span id="utilization-rate-value">0.25</span>
+				<input type="range" id="utilization-rate" name="utilization-rate" min="0" max="1" step="0.01" value="0.25">
+			</div>
+			<div id="total-compute-amount"></div>
+			<button type="submit">Calculate</button>
+		</form>
+		<div id="output">
+			<p id="compute-results"></p>
+		</div>
+	</div>
+	<script src="script.js"></script>
     <script>
         document.getElementById("initalize").onclick = function() {
 
