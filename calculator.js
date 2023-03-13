@@ -1,28 +1,25 @@
 class TransformerFLOPs {
-    constructor(gpu=null, throughput=null, model=null, parameters=null, time=null, num_chips=null, utilization=null, cost_per_flop=null) {
-        if (model) {
-            this.parameters = model.parameters;
-            this.tokens = model.tokens;
-        } else {
+    constructor(throughput=null, parameters=null, tokens=null, time=null, num_chips=null, utilization=null, cost_per_flop=null) {
+        if(parameters){
             this.parameters = parameters;
         }
-        // note: this assumes you MUST pass in a model or parameters
-        
-        if(utilization === null){
+
+        if(tokens){
+            this.tokens = tokens;
+        }
+
+        if(!utilization){
             this.utilization = 0.3;
         }
         else{  
             this.utilization = utilization;
         }
         
-        if (gpu) {
-            this.throughput = gpu.throughput * this.utilization;
-            this.gpu_cost = gpu.cost;
-        } else {
+        if (throughput) {
             this.throughput = throughput * this.utilization;
-        }
-        // note: this assumes you MUST pass in a GPU or throughput
-        // 
+        } 
+
+
         // if statement to check if cost_per_flop is null
         if(cost_per_flop === null){
             this.cost_per_flop = 1;
@@ -34,6 +31,7 @@ class TransformerFLOPs {
         this.time = time;
     }
     
+    //need to add solutions to eq thaat are not reliant on compute var
     compute() {
         return 6 * this.parameters * this.tokens;
     }
@@ -59,6 +57,7 @@ class TransformerFLOPs {
         return this.gpu_cost * this.compute();
     }
     
+    //calculates as many variables as it can
     calculateMissingVariable() {
         if (!this.time) {
             this.time = this.computeTime();
@@ -75,7 +74,15 @@ class TransformerFLOPs {
         if (!this.tokens) {
             this.tokens = this.computeTokens();
         }
-        
+        // Need to check this math..
+        if(!this.throughput){
+            this.throughput = this.throughput;
+        }
+
+        if(!this.utilization){
+            this.utilization = this.throughput / this.compute();
+        }
+
         if (!this.cost) {
             this.cost = this.cost();
         }

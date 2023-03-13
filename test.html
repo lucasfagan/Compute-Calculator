@@ -21,9 +21,16 @@
         </td>
         <td><span class="dimensionality">PxT</span></td>
       </tr>
-      <tr id="custom-model-row">
+      <!--HIDDEN PARAMETER INPUT BOX -->
+      <tr id="custom-model-row-params" class="optional_row" onchange="checkVars()">
         <td>Params</td>
-        <td><input type="text" id="params-custom" placeholder="Select a model" disabled></td>
+        <td><input type="text" id="params-custom" placeholder="Enter number of parameters" disabled></td>
+        <td><span class="dimensionality">B</span></td>
+      <tr>
+      <!--HIDDEN TOKEN INPUT BOX -->
+      <tr id="custom-model-row-tokens" class="optional_row" onchange="checkVars()">
+        <td>Tokens</td>
+        <td><input type="text" id="params-tokens" placeholder="Enter number of tokens" disabled></td>
         <td><span class="dimensionality">B</span></td>
       <tr>
         <td>Compute</td>
@@ -38,30 +45,32 @@
         </td>
         <td><span class="dimensionality">teraFlops</span></td>
       </tr>
-      <tr id="custom-compute-row">
+      <!--HIDDEN COMPUTE INPUT BOX -->
+      <tr id="custom-compute-row" class="optional_row" onchange="checkVars()">
         <td>Compute</td>
-        <td><input type="text" id="compute-custom-input" placeholder="Select a chip" disabled></td>
+        <td><input type="text" id="compute-custom-input" placeholder="Enter compute in TFs" disabled></td>
         <td><span class="dimensionality">teraFlops</span></td>
       </tr>
-      <tr>
+      <tr onchange="checkVars()">
         <td>Chips</td>
-        <td><input type="text" id="chips" placeholder=""></td>
+        <td><input type="text" id="compute-chips" placeholder=""></td>
         <td><span class="dimensionality">chips</span></td>
       </tr>
-      <tr>
+      <t onchange="checkVars()"r>
         <td>Util Rate</td>
-        <td><input type="text" id="util-rate" placeholder=""></td>
+        <td><input type="text" id="compute-utilization" placeholder="30"></td>
         <td><span class="dimensionality">%</span></td>
       </tr>
-      <tr>
+      <tr onchange="checkVars()">
         <td>Time</td>
-        <td><input type="text" id="time" placeholder=""></td>
+        <td><input type="text" id="compute-time" placeholder=""></td>
         <td><span class="dimensionality">days</span></td>
       </tr>
     </table>
   </div>
+  <script src="calculator.js"></script>
   <script src="script1.js">
-
+  
   </script>
 </body>
 </html>
