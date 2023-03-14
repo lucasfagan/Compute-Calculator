@@ -1,3 +1,5 @@
+precision = 5;
+
 function toggleCustomModel() {
     var modelDropdown = document.getElementById("model-dropdown");
     var modelInput = document.getElementById("model-input");
@@ -12,20 +14,14 @@ function toggleCustomModel() {
         // change the placeholder text
         document.getElementById("params-custom").placeholder = "Enter custom parameters";
         
-    }
-    else { 
+    } else { 
         document.getElementById("params-custom").disabled = true;
         document.getElementById("custom-model-row-params").style.display = "none";
         document.getElementById("params-tokens").disabled = true;
         document.getElementById("custom-model-row-tokens").style.display = "none";
-        if (modelDropdown.value === "gpt-3") {
-            var model = new Model("GPT-3", 175000000000, 500000000000);
-            //print to console, "else if ran"
-            console.log("else if ran");
-        }
     }
-    //else if the model dropdown is GPT-3
-    //test
+    // run checkvars
+    checkVars();
 
 
 }
@@ -46,6 +42,7 @@ function toggleCustomCompute(){
         document.getElementById("compute-custom-input").disabled = true;
         document.getElementById("custom-compute-row").style.display = "none";
     }
+    checkVars();
 
 }
 var toUpdate = "";
@@ -120,7 +117,7 @@ function checkVars(){
                 toUpdate = "time";
             }
             compute_time = 600*compute_params*compute_tokens / (compute_chips * compute_flops *compute_utilization);
-            document.getElementById("compute-time").value = compute_time/86400;
+            document.getElementById("compute-time").value = round_to_n_sig_figs(compute_time/86400,precision);
             document.getElementById("compute-time").readOnly = true;
         }
         if (compute_flops==null) {
@@ -129,7 +126,7 @@ function checkVars(){
                 toUpdate = "flops";
             }
             compute_flops = 600*compute_params*compute_tokens / (compute_time * compute_chips * compute_utilization);
-            document.getElementById("compute-custom-input").value = compute_flops;
+            document.getElementById("compute-custom-input").value = round_to_n_sig_figs(compute_flops,precision);
             document.getElementById("compute-custom-input").readOnly = true;
         }
         if (compute_chips==null) {
@@ -138,7 +135,7 @@ function checkVars(){
                 toUpdate = "chips";
             }
             compute_chips = 600*compute_params*compute_tokens / (compute_time * compute_flops * compute_utilization);
-            document.getElementById("compute-chips").value = compute_chips;
+            document.getElementById("compute-chips").value = round_to_n_sig_figs(compute_chips,precision);
             document.getElementById("compute-chips").readOnly = true;
         }
         if (compute_utilization==null) {
@@ -147,7 +144,7 @@ function checkVars(){
                 shouldUpdateNewField = false;
             }
             compute_utilization = 600*compute_params*compute_tokens / (compute_time * compute_flops * compute_chips);
-            document.getElementById("compute-utilization").value = compute_utilization;
+            document.getElementById("compute-utilization").value = round_to_n_sig_figs(compute_utilization,precision);
             document.getElementById("compute-utilization").readOnly = true;
 
         }
@@ -157,7 +154,7 @@ function checkVars(){
                 shouldUpdateNewField = false
             }
             compute_params = compute_tokens*compute_chips*compute_utilization*compute_time / (600*compute_tokens);
-            document.getElementById("params-custom").value = compute_params;
+            document.getElementById("params-custom").value = round_to_n_sig_figs(compute_params,precision);
             document.getElementById("params-custom").readOnly = true;
 
         }
@@ -167,38 +164,43 @@ function checkVars(){
                 shouldUpdateNewField = false
             }
             compute_tokens = compute_params*compute_chips*compute_utilization*compute_time / (600*compute_params);
-            document.getElementById("params-tokens").value = compute_tokens;
+            document.getElementById("params-tokens").value = round_to_n_sig_figs(compute_tokens,precision);
             document.getElementById("params-tokens").readOnly = true;
         }
     }
     if (nullVars.length == 0) {
         if (toUpdate == "time") {
             compute_time = 600*compute_params*compute_tokens / (compute_chips * compute_flops *compute_utilization);
-            document.getElementById("compute-time").value = compute_time/86400;
+            document.getElementById("compute-time").value = round_to_n_sig_figs(compute_time/86400,precision);
         }
         if (toUpdate == "flops") {
             compute_flops = 600*compute_params*compute_tokens / (compute_time * compute_chips * compute_utilization);
-            document.getElementById("compute-custom-input").value = compute_flops;
+            document.getElementById("compute-custom-input").value = round_to_n_sig_figs(compute_flops,precision);
         }
         if (toUpdate == "chips") {
             compute_chips = 600*compute_params*compute_tokens / (compute_time * compute_flops * compute_utilization);
-            document.getElementById("compute-chips").value = compute_chips;
+            document.getElementById("compute-chips").value = round_to_n_sig_figs(compute_chips,precision);
         }
         if (toUpdate == "utilization") {
             compute_utilization = 600*compute_params*compute_tokens / (compute_time * compute_flops * compute_chips);
-            document.getElementById("compute-utilization").value = compute_utilization;
+            document.getElementById("compute-utilization").value = round_to_n_sig_figs(compute_utilization,precision);
         }
         if (toUpdate == "params") {
             compute_params = compute_tokens*compute_chips*compute_utilization*compute_time / (600*compute_tokens);
-            document.getElementById("params-custom").value = compute_params;
+            document.getElementById("params-custom").value = round_to_n_sig_figs(compute_params,precision);
         }
         if (toUpdate == "tokens") {
             compute_tokens = compute_params*compute_chips*compute_utilization*compute_time / (600*compute_params);
-            document.getElementById("params-tokens").value = compute_tokens;
+            document.getElementById("params-tokens").value = round_to_n_sig_figs(compute_tokens,precision);
         }
 
     }
-
+//function to round to n sig figs with no scientific notation (always write out number)
+function round_to_n_sig_figs(x,n) {
+    val = Number.parseFloat(x).toPrecision(n);
+    // return val without scientific notation
+    return Number(val);
+}
 
 
 
