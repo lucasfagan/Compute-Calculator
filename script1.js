@@ -32,7 +32,7 @@ function toggleCustomModel() {
 
 
 
-    function toggleCustomCompute(){
+function toggleCustomCompute(){
     var computeDropdown = document.getElementById("compute-dropdown");
     var computeInput = document.getElementById("compute-input");
 
@@ -49,15 +49,47 @@ function toggleCustomModel() {
 
 }
 var toUpdate = "";
-
+var shouldUpdateNewField = true;
 function checkVars(){
+    var compute_params;
+    var compute_tokens;
+    var compute_flops;
+    var compute_chips;
+    var compute_utilization;
+    var compute_time;
+
     console.log("checkVars ran");
-    var compute_params = (document.getElementById("params-custom").value == "") ? null : document.getElementById("params-custom").value;
-    var compute_tokens = (document.getElementById("params-tokens").value == "") ? null : document.getElementById("params-tokens").value;
-    var compute_flops  = (document.getElementById("compute-custom-input").value == "") ? null : document.getElementById("compute-custom-input").value;
-    var compute_chips  = (document.getElementById("compute-chips").value == "") ? null : document.getElementById("compute-chips").value;
-    var compute_utilization = (document.getElementById("compute-utilization").value == "") ? 30 : document.getElementById("compute-utilization").value;
-    var compute_time = (document.getElementById("compute-time").value == "") ? null : document.getElementById("compute-time").value;
+    if (document.getElementById("model-dropdown").value != "custom") {
+        if (document.getElementById("model-dropdown").value == "gpt-3") {
+            compute_params = 500;
+            compute_tokens = 500;
+        } else if (document.getElementById("model-dropdown").value == "lambda") {
+            compute_params = 175;
+            compute_tokens = 500;
+        } else if (document.getElementById("model-dropdown").value == "gpt-2") {
+            compute_params = 500;
+            compute_tokens = 500;
+        }
+    } else {
+        compute_params = (document.getElementById("params-custom").value == "") ? null : document.getElementById("params-custom").value;
+        compute_tokens = (document.getElementById("params-tokens").value == "") ? null : document.getElementById("params-tokens").value;
+    }
+    if (document.getElementById("compute-dropdown").value != "custom") {
+        if (document.getElementById("compute-dropdown").value == "a100") {
+            compute_flops = 175000000000;
+        } else if (document.getElementById("compute-dropdown").value == "v100") {
+            compute_flops = 90000000000;
+        } else if (document.getElementById("compute-dropdown").value == "rtx-3090") {
+            compute_flops = 70000000000;
+        }
+    } else {
+        compute_flops = (document.getElementById("compute-custom-input").value == "") ? null : document.getElementById("compute-custom-input").value;
+    }  
+    compute_chips  = (document.getElementById("compute-chips").value == "") ? null : document.getElementById("compute-chips").value;
+    compute_utilization = (document.getElementById("compute-utilization").value == "") ? 30 : document.getElementById("compute-utilization").value;
+    compute_time = (document.getElementById("compute-time").value == "") ? null : document.getElementById("compute-time").value;
+
+    
 
     // create array of the vars that are null
     var nullVars = [];
@@ -80,82 +112,63 @@ function checkVars(){
         nullVars.push("compute_time");
     }
     // check if the length of the array is 1
-    if (nullVars.length == 1) {
+    if (nullVars.length == 1 && shouldUpdateNewField) {
         // if it is, then we can calculate the missing variable
         if (compute_time==null) {
-            toUpdate = "time";
+            if (shouldUpdateNewField) {
+                shouldUpdateNewField = false;
+                toUpdate = "time";
+            }
             compute_time = 6*compute_params*compute_tokens / (compute_chips * compute_utilization *compute_utilization);
             document.getElementById("compute-time").value = compute_time;
             document.getElementById("compute-time").readOnly = true;
-            //set readonly property of the other ones to false
-            document.getElementById("compute-custom-input").readOnly = false;
-            document.getElementById("compute-chips").readOnly = false;
-            document.getElementById("compute-utilization").readOnly = false;
-            document.getElementById("params-custom").readOnly = false;
-            document.getElementById("params-tokens").readOnly = false;
         }
         if (compute_flops==null) {
-            toUpdate = "flops";
+            if (shouldUpdateNewField) {
+                shouldUpdateNewField = false;
+                toUpdate = "flops";
+            }
             compute_flops = 6*compute_params*compute_tokens / (compute_time * compute_chips * compute_utilization);
             document.getElementById("compute-custom-input").value = compute_flops;
             document.getElementById("compute-custom-input").readOnly = true;
-            // set readonly property of the other ones to false
-            document.getElementById("compute-time").readOnly = false;
-            document.getElementById("compute-chips").readOnly = false;
-            document.getElementById("compute-utilization").readOnly = false;
-            document.getElementById("params-custom").readOnly = false;
-            document.getElementById("params-tokens").readOnly = false;
         }
         if (compute_chips==null) {
-            toUpdate = "chips";
+            if (shouldUpdateNewField) {
+                shouldUpdateNewField = false;
+                toUpdate = "chips";
+            }
             compute_chips = 6*compute_params*compute_tokens / (compute_time * compute_flops * compute_utilization);
             document.getElementById("compute-chips").value = compute_chips;
             document.getElementById("compute-chips").readOnly = true;
-            // set readonly property of the other ones to false
-            document.getElementById("compute-time").readOnly = false;
-            document.getElementById("compute-custom-input").readOnly = false;
-            document.getElementById("compute-utilization").readOnly = false;
-            document.getElementById("params-custom").readOnly = false;
-            document.getElementById("params-tokens").readOnly = false;
         }
         if (compute_utilization==null) {
-            toUpdate = "utilization";
+            if (shouldUpdateNewField) {
+                toUpdate = "utilization";
+                shouldUpdateNewField = false;
+            }
             compute_utilization = 6*compute_params*compute_tokens / (compute_time * compute_flops * compute_chips);
             document.getElementById("compute-utilization").value = compute_utilization;
             document.getElementById("compute-utilization").readOnly = true;
-            // set readonly property of the other ones to false
-            document.getElementById("compute-time").readOnly = false;
-            document.getElementById("compute-custom-input").readOnly = false;
-            document.getElementById("compute-chips").readOnly = false;
-            document.getElementById("params-custom").readOnly = false;
-            document.getElementById("params-tokens").readOnly = false;
 
         }
         if (compute_params==null) {
-            toUpdate = "params";
+            if (shouldUpdateNewField) {
+                toUpdate = "params";
+                shouldUpdateNewField = false
+            }
             compute_params = compute_tokens*compute_chips*compute_utilization*compute_time / 6*compute_tokens;
             document.getElementById("params-custom").value = compute_params;
             document.getElementById("params-custom").readOnly = true;
-            // set readonly property of the other ones to false
-            document.getElementById("compute-time").readOnly = false;
-            document.getElementById("compute-custom-input").readOnly = false;
-            document.getElementById("compute-chips").readOnly = false;
-            document.getElementById("compute-utilization").readOnly = false;
-            document.getElementById("params-tokens").readOnly = false;
 
         }
         if (compute_tokens==null) {
-            toUpdate = "tokens";
+            if (shouldUpdateNewField) {
+                toUpdate = "tokens";
+                shouldUpdateNewField = false
+            }
             compute_tokens = compute_params / compute_flops;
             document.getElementById("params-tokens").value = compute_tokens;
             document.getElementById("params-tokens").readOnly = true;
-            // set readonly property of the other ones to false
-            document.getElementById("compute-time").readOnly = false;
-            document.getElementById("compute-custom-input").readOnly = false;
-            document.getElementById("compute-chips").readOnly = false;
-            document.getElementById("compute-utilization").readOnly = false;
-            document.getElementById("params-custom").readOnly = false;
-        
         }
     }
     if (nullVars.length == 0) {
