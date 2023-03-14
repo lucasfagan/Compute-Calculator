@@ -105,7 +105,7 @@ function checkVars(){
         }
         if (compute_params==null) {
             toUpdate = "params";
-            compute_params = compute_flops / (6*compute_tokens / (compute_time * compute_chips * compute_utilization));
+            compute_params = compute_tokens*compute_chips*compute_utilization*compute_time / 6*compute_tokens;
             document.getElementById("params-custom").value = compute_params;
         }
         if (compute_tokens==null) {
