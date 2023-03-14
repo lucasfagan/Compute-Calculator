@@ -6,18 +6,18 @@ function toggleCustomModel() {
     //if the model dropdown is set to custom, change the html to show the input box
     if (modelDropdown.value === "custom") {
         document.getElementById("params-custom").disabled = false;
-        document.getElementById("custom-model-row-params").style.visibility = "visible";
+        document.getElementById("custom-model-row-params").style.display = "";
         document.getElementById("params-tokens").disabled = false;
-        document.getElementById("custom-model-row-tokens").style.visibility = "visible";
+        document.getElementById("custom-model-row-tokens").style.display = "";
         // change the placeholder text
         document.getElementById("params-custom").placeholder = "Enter custom parameters";
         
     }
     else { 
         document.getElementById("params-custom").disabled = true;
-        document.getElementById("custom-model-row-params").style.visibility = "collapse";
+        document.getElementById("custom-model-row-params").style.display = "none";
         document.getElementById("params-tokens").disabled = true;
-        document.getElementById("custom-model-row-tokens").style.visibility = "collapse";
+        document.getElementById("custom-model-row-tokens").style.display = "none";
         if (modelDropdown.value === "gpt-3") {
             var model = new Model("GPT-3", 175000000000, 500000000000);
             //print to console, "else if ran"

@@ -55,5 +55,5 @@ body {
   }
 
   .optional_row{
-    visibility: collapse;
+    display: show;
   }
