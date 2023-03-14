@@ -63,12 +63,12 @@ function checkVars(){
         if (document.getElementById("model-dropdown").value == "gpt-3") {
             compute_params = 175000000000;
             compute_tokens = 500000000000;
-        } else if (document.getElementById("model-dropdown").value == "lambda") {
-            compute_params = 175;
-            compute_tokens = 500;
+        } else if (document.getElementById("model-dropdown").value == "PaLM") {
+            compute_params = 540000000000;
+            compute_tokens = 780000000000;
         } else if (document.getElementById("model-dropdown").value == "gpt-2") {
-            compute_params = 500;
-            compute_tokens = 500;
+            compute_params = 1500000000;
+            compute_tokens = 400000000000;
         }
     } else {
         compute_params = (document.getElementById("params-custom").value == "") ? null : document.getElementById("params-custom").value;
@@ -76,11 +76,11 @@ function checkVars(){
     }
     if (document.getElementById("compute-dropdown").value != "custom") {
         if (document.getElementById("compute-dropdown").value == "a100") {
-            compute_flops = 175000000000;
+            compute_flops = 3.12e14;
         } else if (document.getElementById("compute-dropdown").value == "v100") {
-            compute_flops = 90000000000;
+            compute_flops = 1.3e14;
         } else if (document.getElementById("compute-dropdown").value == "rtx-3090") {
-            compute_flops = 70000000000;
+            compute_flops = .7e14;
         }
     } else {
         compute_flops = (document.getElementById("compute-custom-input").value == "") ? null : document.getElementById("compute-custom-input").value;
@@ -119,8 +119,8 @@ function checkVars(){
                 shouldUpdateNewField = false;
                 toUpdate = "time";
             }
-            compute_time = 6*compute_params*compute_tokens / (compute_chips * compute_flops *compute_utilization);
-            document.getElementById("compute-time").value = compute_time;
+            compute_time = 600*compute_params*compute_tokens / (compute_chips * compute_flops *compute_utilization);
+            document.getElementById("compute-time").value = compute_time/86400;
             document.getElementById("compute-time").readOnly = true;
         }
         if (compute_flops==null) {
@@ -128,7 +128,7 @@ function checkVars(){
                 shouldUpdateNewField = false;
                 toUpdate = "flops";
             }
-            compute_flops = 6*compute_params*compute_tokens / (compute_time * compute_chips * compute_utilization);
+            compute_flops = 600*compute_params*compute_tokens / (compute_time * compute_chips * compute_utilization);
             document.getElementById("compute-custom-input").value = compute_flops;
             document.getElementById("compute-custom-input").readOnly = true;
         }
@@ -137,7 +137,7 @@ function checkVars(){
                 shouldUpdateNewField = false;
                 toUpdate = "chips";
             }
-            compute_chips = 6*compute_params*compute_tokens / (compute_time * compute_flops * compute_utilization);
+            compute_chips = 600*compute_params*compute_tokens / (compute_time * compute_flops * compute_utilization);
             document.getElementById("compute-chips").value = compute_chips;
             document.getElementById("compute-chips").readOnly = true;
         }
@@ -146,7 +146,7 @@ function checkVars(){
                 toUpdate = "utilization";
                 shouldUpdateNewField = false;
             }
-            compute_utilization = 6*compute_params*compute_tokens / (compute_time * compute_flops * compute_chips);
+            compute_utilization = 600*compute_params*compute_tokens / (compute_time * compute_flops * compute_chips);
             document.getElementById("compute-utilization").value = compute_utilization;
             document.getElementById("compute-utilization").readOnly = true;
 
@@ -156,7 +156,7 @@ function checkVars(){
                 toUpdate = "params";
                 shouldUpdateNewField = false
             }
-            compute_params = compute_tokens*compute_chips*compute_utilization*compute_time / (6*compute_tokens);
+            compute_params = compute_tokens*compute_chips*compute_utilization*compute_time / (600*compute_tokens);
             document.getElementById("params-custom").value = compute_params;
             document.getElementById("params-custom").readOnly = true;
 
@@ -166,34 +166,34 @@ function checkVars(){
                 toUpdate = "tokens";
                 shouldUpdateNewField = false
             }
-            compute_tokens = compute_params*compute_chips*compute_utilization*compute_time / (6*compute_params);
+            compute_tokens = compute_params*compute_chips*compute_utilization*compute_time / (600*compute_params);
             document.getElementById("params-tokens").value = compute_tokens;
             document.getElementById("params-tokens").readOnly = true;
         }
     }
     if (nullVars.length == 0) {
         if (toUpdate == "time") {
-            compute_time = 6*compute_params*compute_tokens / (compute_chips * compute_flops *compute_utilization);
-            document.getElementById("compute-time").value = compute_time;
+            compute_time = 600*compute_params*compute_tokens / (compute_chips * compute_flops *compute_utilization);
+            document.getElementById("compute-time").value = compute_time/86400;
         }
         if (toUpdate == "flops") {
-            compute_flops = 6*compute_params*compute_tokens / (compute_time * compute_chips * compute_utilization);
+            compute_flops = 600*compute_params*compute_tokens / (compute_time * compute_chips * compute_utilization);
             document.getElementById("compute-custom-input").value = compute_flops;
         }
         if (toUpdate == "chips") {
-            compute_chips = 6*compute_params*compute_tokens / (compute_time * compute_flops * compute_utilization);
+            compute_chips = 600*compute_params*compute_tokens / (compute_time * compute_flops * compute_utilization);
             document.getElementById("compute-chips").value = compute_chips;
         }
         if (toUpdate == "utilization") {
-            compute_utilization = 6*compute_params*compute_tokens / (compute_time * compute_flops * compute_chips);
+            compute_utilization = 600*compute_params*compute_tokens / (compute_time * compute_flops * compute_chips);
             document.getElementById("compute-utilization").value = compute_utilization;
         }
         if (toUpdate == "params") {
-            compute_params = compute_tokens*compute_chips*compute_utilization*compute_time / (6*compute_tokens);
+            compute_params = compute_tokens*compute_chips*compute_utilization*compute_time / (600*compute_tokens);
             document.getElementById("params-custom").value = compute_params;
         }
         if (toUpdate == "tokens") {
-            compute_tokens = compute_params*compute_chips*compute_utilization*compute_time / (6*compute_params);
+            compute_tokens = compute_params*compute_chips*compute_utilization*compute_time / (600*compute_params);
             document.getElementById("params-tokens").value = compute_tokens;
         }
 
