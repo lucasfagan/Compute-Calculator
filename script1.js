@@ -61,8 +61,8 @@ function checkVars(){
     console.log("checkVars ran");
     if (document.getElementById("model-dropdown").value != "custom") {
         if (document.getElementById("model-dropdown").value == "gpt-3") {
-            compute_params = 500;
-            compute_tokens = 500;
+            compute_params = 175000000000;
+            compute_tokens = 500000000000;
         } else if (document.getElementById("model-dropdown").value == "lambda") {
             compute_params = 175;
             compute_tokens = 500;
@@ -119,7 +119,7 @@ function checkVars(){
                 shouldUpdateNewField = false;
                 toUpdate = "time";
             }
-            compute_time = 6*compute_params*compute_tokens / (compute_chips * compute_utilization *compute_utilization);
+            compute_time = 6*compute_params*compute_tokens / (compute_chips * compute_flops *compute_utilization);
             document.getElementById("compute-time").value = compute_time;
             document.getElementById("compute-time").readOnly = true;
         }
@@ -156,7 +156,7 @@ function checkVars(){
                 toUpdate = "params";
                 shouldUpdateNewField = false
             }
-            compute_params = compute_tokens*compute_chips*compute_utilization*compute_time / 6*compute_tokens;
+            compute_params = compute_tokens*compute_chips*compute_utilization*compute_time / (6*compute_tokens);
             document.getElementById("params-custom").value = compute_params;
             document.getElementById("params-custom").readOnly = true;
 
@@ -166,14 +166,14 @@ function checkVars(){
                 toUpdate = "tokens";
                 shouldUpdateNewField = false
             }
-            compute_tokens = compute_params / compute_flops;
+            compute_tokens = compute_params*compute_chips*compute_utilization*compute_time / (6*compute_params);
             document.getElementById("params-tokens").value = compute_tokens;
             document.getElementById("params-tokens").readOnly = true;
         }
     }
     if (nullVars.length == 0) {
         if (toUpdate == "time") {
-            compute_time = 6*compute_params*compute_tokens / (compute_chips * compute_utilization *compute_utilization);
+            compute_time = 6*compute_params*compute_tokens / (compute_chips * compute_flops *compute_utilization);
             document.getElementById("compute-time").value = compute_time;
         }
         if (toUpdate == "flops") {
@@ -189,11 +189,11 @@ function checkVars(){
             document.getElementById("compute-utilization").value = compute_utilization;
         }
         if (toUpdate == "params") {
-            compute_params = compute_tokens*compute_chips*compute_utilization*compute_time / 6*compute_tokens;
+            compute_params = compute_tokens*compute_chips*compute_utilization*compute_time / (6*compute_tokens);
             document.getElementById("params-custom").value = compute_params;
         }
         if (toUpdate == "tokens") {
-            compute_tokens = compute_params / compute_flops;
+            compute_tokens = compute_params*compute_chips*compute_utilization*compute_time / (6*compute_params);
             document.getElementById("params-tokens").value = compute_tokens;
         }
 
