@@ -87,39 +87,65 @@ function checkVars(){
             toUpdate = "time";
             compute_time = 6*compute_params*compute_tokens / (compute_chips * compute_utilization *compute_utilization);
             document.getElementById("compute-time").value = compute_time;
+            document.getElementById("compute-time").readOnly = true;
         }
         if (compute_flops==null) {
             toUpdate = "flops";
             compute_flops = 6*compute_params*compute_tokens / (compute_time * compute_chips * compute_utilization);
             document.getElementById("compute-custom-input").value = compute_flops;
+            document.getElementById("compute-custom-input").readOnly = true;
         }
         if (compute_chips==null) {
             toUpdate = "chips";
             compute_chips = 6*compute_params*compute_tokens / (compute_time * compute_flops * compute_utilization);
             document.getElementById("compute-chips").value = compute_chips;
+            document.getElementById("compute-chips").readOnly = true;
         }
         if (compute_utilization==null) {
             toUpdate = "utilization";
             compute_utilization = 6*compute_params*compute_tokens / (compute_time * compute_flops * compute_chips);
             document.getElementById("compute-utilization").value = compute_utilization;
+            document.getElementById("compute-utilization").readOnly = true;
         }
         if (compute_params==null) {
             toUpdate = "params";
             compute_params = compute_tokens*compute_chips*compute_utilization*compute_time / 6*compute_tokens;
             document.getElementById("params-custom").value = compute_params;
+            document.getElementById("params-custom").readOnly = true;
         }
         if (compute_tokens==null) {
             toUpdate = "tokens";
             compute_tokens = compute_params / compute_flops;
             document.getElementById("params-tokens").value = compute_tokens;
+            document.getElementById("params-tokens").readOnly = true;
         }
     }
     if (nullVars.length == 0) {
         if (toUpdate == "time") {
-            console.log("yes");
-            compute_time = compute_flops / (compute_chips * compute_utilization);
+            compute_time = 6*compute_params*compute_tokens / (compute_chips * compute_utilization *compute_utilization);
             document.getElementById("compute-time").value = compute_time;
         }
+        if (toUpdate == "flops") {
+            compute_flops = 6*compute_params*compute_tokens / (compute_time * compute_chips * compute_utilization);
+            document.getElementById("compute-custom-input").value = compute_flops;
+        }
+        if (toUpdate == "chips") {
+            compute_chips = 6*compute_params*compute_tokens / (compute_time * compute_flops * compute_utilization);
+            document.getElementById("compute-chips").value = compute_chips;
+        }
+        if (toUpdate == "utilization") {
+            compute_utilization = 6*compute_params*compute_tokens / (compute_time * compute_flops * compute_chips);
+            document.getElementById("compute-utilization").value = compute_utilization;
+        }
+        if (toUpdate == "params") {
+            compute_params = compute_tokens*compute_chips*compute_utilization*compute_time / 6*compute_tokens;
+            document.getElementById("params-custom").value = compute_params;
+        }
+        if (toUpdate == "tokens") {
+            compute_tokens = compute_params / compute_flops;
+            document.getElementById("params-tokens").value = compute_tokens;
+        }
+        
     }
 
 
