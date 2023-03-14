@@ -228,9 +228,16 @@ function get_time_unit(seconds) {
         return [seconds/604800, "weeks"];
     } else if (seconds < 31536000) {
         return [seconds/2628000, "months"];
-    } else {
+    } else if (seconds < 315360000) {
         return [seconds/31536000, "years"];
+    } else if (seconds < 3153600000) {
+        return [seconds/315360000, "decades"];
+    } else if (seconds < 31536000000) {
+        return [seconds/3153600000, "centuries"];
+    } else {
+        return [seconds/31536000000, "millenia"];
     }
+
 }
 
 
