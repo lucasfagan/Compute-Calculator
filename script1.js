@@ -69,12 +69,21 @@ function checkVars(){
     console.log(instance.utilization);
     console.log(instance.time);
     //Vars get updated but don't show in the textbox..    
-    compute_tokens.value = instance.tokens;
-    compute_flops.value = instance.throughput;
-    compute_chips.value = instance.num_chips;
-    compute_utilization.value = instance.utilization;
-    compute_time.value = instance.time;
-    compute_params.innerHTML = instance.parameters;
+    isNaN(instance.parameters) || (document.getElementById("params-custom").value = instance.parameters);
+    isNaN(instance.tokens) || (document.getElementById("params-tokens").value = instance.tokens);
+    isNaN(instance.throughput) || (document.getElementById("compute-custom-input").value = instance.throughput);
+    isNaN(instance.num_chips) || (document.getElementById("compute-chips").value = instance.num_chips);
+    isNaN(instance.utilization) || (document.getElementById("compute-utilization").value = instance.utilization);
+    isNaN(instance.time) || (document.getElementById("compute-time").value = instance.time);
+
+   // document.getElementById("params-custom").value = instance.parameters;
+   // document.getElementById("params-tokens").value = instance.tokens;
+   // document.getElementById("compute-custom-input").value = instance.throughput;
+   // document.getElementById("compute-chips").value = instance.num_chips;
+   // document.getElementById("compute-utilization").value = instance.utilization;
+   // document.getElementById("compute-time").value = instance.time;
+    
+    
 
 
 }
