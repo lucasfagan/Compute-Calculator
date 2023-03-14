@@ -40,11 +40,11 @@ function toggleCustomModel() {
     if (computeDropdown.value === "custom") {
         
         document.getElementById("compute-custom-input").disabled = false;
-        document.getElementById("custom-compute-row").style.visibility = "visible";
+        document.getElementById("custom-compute-row").style.display = "";
 
     } else {
         document.getElementById("compute-custom-input").disabled = true;
-        document.getElementById("custom-compute-row").style.visibility = "collapse";
+        document.getElementById("custom-compute-row").style.display = "none";
     }
 
 }
