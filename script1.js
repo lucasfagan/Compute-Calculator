@@ -117,7 +117,11 @@ function checkVars(){
                 toUpdate = "time";
             }
             compute_time = 600*compute_params*compute_tokens / (compute_chips * compute_flops *compute_utilization);
-            document.getElementById("compute-time").value = round_to_n_sig_figs(compute_time/86400,precision);
+            var timeWithUnit = get_time_unit(compute_time);
+            time = timeWithUnit[0];
+            unit = timeWithUnit[1];
+            document.getElementById("compute-time").value = round_to_n_sig_figs(time,precision);
+            document.getElementById("time-unit").innerHTML = unit;
             document.getElementById("compute-time").readOnly = true;
         }
         if (compute_flops==null) {
@@ -171,7 +175,12 @@ function checkVars(){
     if (nullVars.length == 0) {
         if (toUpdate == "time") {
             compute_time = 600*compute_params*compute_tokens / (compute_chips * compute_flops *compute_utilization);
-            document.getElementById("compute-time").value = round_to_n_sig_figs(compute_time/86400,precision);
+            // pass time into the function to convert it and unpack
+            var timeWithUnit = get_time_unit(compute_time);
+            time = timeWithUnit[0];
+            unit = timeWithUnit[1];
+            document.getElementById("compute-time").value = round_to_n_sig_figs(time,precision);
+            document.getElementById("time-unit").innerHTML = unit;
         }
         if (toUpdate == "flops") {
             compute_flops = 600*compute_params*compute_tokens / (compute_time * compute_chips * compute_utilization);
@@ -200,6 +209,28 @@ function round_to_n_sig_figs(x,n) {
     val = Number.parseFloat(x).toPrecision(n);
     // return val without scientific notation
     return Number(val);
+}
+
+//function that takes a number of seconds and returns a new quantity and unit that is appropriate for the number of seconds
+function get_time_unit(seconds) {
+    if (seconds < 60) {
+        return [seconds, "seconds"];
+    }
+    else if (seconds < 3600) {
+        return [seconds/60, "minutes"];
+    }
+    else if (seconds < 86400) {
+        return [seconds/3600, "hours"];
+    }
+    else if (seconds < 604800) {
+        return [seconds/86400, "days"];
+    } else if (seconds < 2628000) {
+        return [seconds/604800, "weeks"];
+    } else if (seconds < 31536000) {
+        return [seconds/2628000, "months"];
+    } else {
+        return [seconds/31536000, "years"];
+    }
 }
 
 
