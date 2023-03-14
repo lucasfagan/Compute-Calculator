@@ -1,11 +1,11 @@
 class TransformerFLOPs {
     constructor(throughput=null, parameters=null, tokens=null, time=null, num_chips=null, utilization=null, cost_per_flop=null) {
         if(parameters){
-            this.parameters = parameters;
+            this.parameters = parseFloat(parameters);
         }
 
         if(tokens){
-            this.tokens = tokens;
+            this.tokens = parseFloat(tokens);
         }
 
         if(!utilization){
