@@ -85,8 +85,33 @@ function checkVars(){
         // if it is, then we can calculate the missing variable
         if (compute_time==null) {
             toUpdate = "time";
-            compute_time = compute_flops / (compute_chips * compute_utilization);
+            compute_time = 6*compute_params*compute_tokens / (compute_chips * compute_utilization *compute_utilization);
             document.getElementById("compute-time").value = compute_time;
+        }
+        if (compute_flops==null) {
+            toUpdate = "flops";
+            compute_flops = 6*compute_params*compute_tokens / (compute_time * compute_chips * compute_utilization);
+            document.getElementById("compute-custom-input").value = compute_flops;
+        }
+        if (compute_chips==null) {
+            toUpdate = "chips";
+            compute_chips = 6*compute_params*compute_tokens / (compute_time * compute_flops * compute_utilization);
+            document.getElementById("compute-chips").value = compute_chips;
+        }
+        if (compute_utilization==null) {
+            toUpdate = "utilization";
+            compute_utilization = 6*compute_params*compute_tokens / (compute_time * compute_flops * compute_chips);
+            document.getElementById("compute-utilization").value = compute_utilization;
+        }
+        if (compute_params==null) {
+            toUpdate = "params";
+            compute_params = compute_flops / (6*compute_tokens / (compute_time * compute_chips * compute_utilization));
+            document.getElementById("params-custom").value = compute_params;
+        }
+        if (compute_tokens==null) {
+            toUpdate = "tokens";
+            compute_tokens = compute_params / compute_flops;
+            document.getElementById("params-tokens").value = compute_tokens;
         }
     }
     if (nullVars.length == 0) {
@@ -96,6 +121,7 @@ function checkVars(){
             document.getElementById("compute-time").value = compute_time;
         }
     }
+
 
 
 
