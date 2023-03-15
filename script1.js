@@ -185,6 +185,8 @@ function checkVars(){
             var timeWithUnit = get_time_unit(compute_time);
             time = timeWithUnit[0];
             unit = timeWithUnit[1];
+            console.log(time);
+            console.log(unit);
             document.getElementById("compute-time").value = round_to_n_sig_figs(time,precision);
             document.getElementById("time-unit").innerHTML = unit;
             updatePowerAndCost(get_power(compute_time,compute_chips),get_cost(compute_time,compute_chips))
