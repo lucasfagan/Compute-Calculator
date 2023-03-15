@@ -297,7 +297,7 @@ function get_time_unit(seconds) {
         const total_cost = compute_time * compute_chips * cost_rate / 100;
         return total_cost;
     }
-
+//
 
     function updatePowerAndCost(power, cost) {
         document.getElementById('power-value').innerText = power;
