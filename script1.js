@@ -216,6 +216,7 @@ function checkVars(){
         }
 
     }
+}
 //function to round to n sig figs with no scientific notation (always write out number)
 function round_to_n_sig_figs(x,n) {
     val = Number.parseFloat(x).toPrecision(n);
@@ -251,7 +252,7 @@ function get_time_unit(seconds) {
     }
 
 }
-
+//test
 
 
     // const instance = new TransformerFLOPs(throughput=compute_flops, parameters=compute_params, tokens=compute_tokens, time=compute_time, num_chips=compute_chips, utilization=compute_utilization, cost_per_flop=null);
@@ -305,5 +306,3 @@ function get_time_unit(seconds) {
         document.getElementById('power-consumed').style.display = 'block';
         document.getElementById('estimated-cost').style.display = 'block';
     }
-
-}
