@@ -16,9 +16,8 @@ jobs:
     - name: Set up SFTP action
       uses: SamKirkland/FTP-Deploy-Action@4.2.0
       with:
-        host: ${{ secrets.IONOS_HOST }}
+        server: ${{ secrets.IONOS_HOST }}
         username: ${{ secrets.IONOS_USERNAME }}
         password: ${{ secrets.IONOS_PASSWORD }}
-        localDir: . # Set this to the directory that contains your website files
-        remoteDir: / # Set this to the directory on the Ionos.com server where you want to deploy the files
-        args: -o ConnectTimeout=10
+        local-rir: . # Set this to the directory that contains your website files
+        server-dir: ./ # Set this to the directory on the Ionos.com server where you want to deploy the files
