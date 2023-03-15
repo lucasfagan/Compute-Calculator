@@ -306,5 +306,3 @@ function get_time_unit(seconds) {
         document.getElementById('power-consumed').style.display = 'block';
         document.getElementById('estimated-cost').style.display = 'block';
     }
-
-}
