@@ -123,6 +123,7 @@ function checkVars(){
             document.getElementById("compute-time").value = round_to_n_sig_figs(time,precision);
             document.getElementById("time-unit").innerHTML = unit;
             document.getElementById("compute-time").readOnly = true;
+            updatePowerAndCost(get_power(compute_time,compute_chips),get_cost(compute_time,compute_chips))
         }
         if (compute_flops==null) {
             if (shouldUpdateNewField) {
@@ -132,6 +133,7 @@ function checkVars(){
             compute_flops = 600*compute_params*compute_tokens / (compute_time * compute_chips * compute_utilization);
             document.getElementById("compute-custom-input").value = round_to_n_sig_figs(compute_flops,precision);
             document.getElementById("compute-custom-input").readOnly = true;
+            updatePowerAndCost(get_power(compute_time,compute_chips),get_cost(compute_time,compute_chips))
         }
         if (compute_chips==null) {
             if (shouldUpdateNewField) {
@@ -141,6 +143,7 @@ function checkVars(){
             compute_chips = 600*compute_params*compute_tokens / (compute_time * compute_flops * compute_utilization);
             document.getElementById("compute-chips").value = round_to_n_sig_figs(compute_chips,precision);
             document.getElementById("compute-chips").readOnly = true;
+            updatePowerAndCost(get_power(compute_time,compute_chips),get_cost(compute_time,compute_chips))
         }
         if (compute_utilization==null) {
             if (shouldUpdateNewField) {
@@ -150,6 +153,7 @@ function checkVars(){
             compute_utilization = 600*compute_params*compute_tokens / (compute_time * compute_flops * compute_chips);
             document.getElementById("compute-utilization").value = round_to_n_sig_figs(compute_utilization,precision);
             document.getElementById("compute-utilization").readOnly = true;
+            updatePowerAndCost(get_power(compute_time,compute_chips),get_cost(compute_time,compute_chips))
 
         }
         if (compute_params==null) {
@@ -160,6 +164,7 @@ function checkVars(){
             compute_params = compute_tokens*compute_chips*compute_utilization*compute_time / (600*compute_tokens);
             document.getElementById("params-custom").value = round_to_n_sig_figs(compute_params,precision);
             document.getElementById("params-custom").readOnly = true;
+            updatePowerAndCost(get_power(compute_time,compute_chips),get_cost(compute_time,compute_chips))
 
         }
         if (compute_tokens==null) {
@@ -170,6 +175,7 @@ function checkVars(){
             compute_tokens = compute_params*compute_chips*compute_utilization*compute_time / (600*compute_params);
             document.getElementById("params-tokens").value = round_to_n_sig_figs(compute_tokens,precision);
             document.getElementById("params-tokens").readOnly = true;
+            updatePowerAndCost(get_power(compute_time,compute_chips),get_cost(compute_time,compute_chips))
         }
     }
     if (nullVars.length == 0) {
@@ -181,26 +187,32 @@ function checkVars(){
             unit = timeWithUnit[1];
             document.getElementById("compute-time").value = round_to_n_sig_figs(time,precision);
             document.getElementById("time-unit").innerHTML = unit;
+            updatePowerAndCost(get_power(compute_time,compute_chips),get_cost(compute_time,compute_chips))
         }
         if (toUpdate == "flops") {
             compute_flops = 600*compute_params*compute_tokens / (compute_time * compute_chips * compute_utilization);
             document.getElementById("compute-custom-input").value = round_to_n_sig_figs(compute_flops,precision);
+            updatePowerAndCost(get_power(compute_time,compute_chips),get_cost(compute_time,compute_chips))
         }
         if (toUpdate == "chips") {
             compute_chips = 600*compute_params*compute_tokens / (compute_time * compute_flops * compute_utilization);
             document.getElementById("compute-chips").value = round_to_n_sig_figs(compute_chips,precision);
+            updatePowerAndCost(get_power(compute_time,compute_chips),get_cost(compute_time,compute_chips))
         }
         if (toUpdate == "utilization") {
             compute_utilization = 600*compute_params*compute_tokens / (compute_time * compute_flops * compute_chips);
             document.getElementById("compute-utilization").value = round_to_n_sig_figs(compute_utilization,precision);
+            updatePowerAndCost(get_power(compute_time,compute_chips),get_cost(compute_time,compute_chips))
         }
         if (toUpdate == "params") {
             compute_params = compute_tokens*compute_chips*compute_utilization*compute_time / (600*compute_tokens);
             document.getElementById("params-custom").value = round_to_n_sig_figs(compute_params,precision);
+            updatePowerAndCost(get_power(compute_time,compute_chips),get_cost(compute_time,compute_chips))
         }
         if (toUpdate == "tokens") {
             compute_tokens = compute_params*compute_chips*compute_utilization*compute_time / (600*compute_params);
             document.getElementById("params-tokens").value = round_to_n_sig_figs(compute_tokens,precision);
+            updatePowerAndCost(get_power(compute_time,compute_chips),get_cost(compute_time,compute_chips))
         }
 
     }
@@ -268,5 +280,31 @@ function get_time_unit(seconds) {
     
     
 
+
+
+
+    // Calculate power consumed based on time spent training and number of chips
+    function get_power(time, chips) {
+        // Replace this rate with actual power consumption details
+        const power_rate = 0.3; // Power consumed in kW per chip per hour
+        const power_consumed = compute_time * compute_chips * power_rate;
+        return power_consumed;
+    }
+
+    function get_cost(time, chips) {
+        // Replace this rate with actual cost details
+        const cost_rate = 2; // Cost in dollars per chip per hour
+        const total_cost = compute_time * compute_chips * cost_rate / 100;
+        return total_cost;
+    }
+
+
+
+    function updatePowerAndCost(power, cost) {
+        document.getElementById('power-value').innerText = power;
+        document.getElementById('cost-value').innerText = cost;
+        document.getElementById('power-consumed').style.display = 'block';
+        document.getElementById('estimated-cost').style.display = 'block';
+    }
 
 }

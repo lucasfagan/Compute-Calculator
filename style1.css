@@ -57,3 +57,7 @@ body {
   .optional_row{
     display: show;
   }
+
+  .center-text {
+    text-align: center;
+  }
