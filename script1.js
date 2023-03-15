@@ -298,7 +298,7 @@ function get_time_unit(seconds) {
         return total_cost;
     }
 //
-
+//
 
     function updatePowerAndCost(power, cost) {
         document.getElementById('power-value').innerText = power;
