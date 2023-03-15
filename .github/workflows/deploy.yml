@@ -20,4 +20,4 @@ jobs:
         username: ${{ secrets.IONOS_USERNAME }}
         password: ${{ secrets.IONOS_PASSWORD }}
         local-dir: . # Set this to the directory that contains your website files
-        server-dir: ./ # Set this to the directory on the Ionos.com server where you want to deploy the files
+        server-dir: ./ # Set this to the directory on the Ionos.com server where you want to deploy the file(s)
