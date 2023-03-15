@@ -1,9 +1,9 @@
-name: Deploy to IONOS Server
+name: Deploy to Ionos.com
 
 on:
   push:
     branches:
-      - main
+      - main # Update this with the name of the branch you want to trigger the deployment
 
 jobs:
   deploy:
@@ -13,12 +13,11 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
-    - name: Deploy to IONOS server
-      uses: /easingthemes/ssh-deploy@main
+    - name: Set up SFTP action
+      uses: SamKirkland/FTP-Deploy-Action@4.2.0
       with:
-        REMOTE_HOST: access951720039.webspace-data.io
-        REMOTE_USER: u111236921
-        REMOTE_PORT: 22
-        SSH_PRIVATE_KEY: suckmyballstrump
-        TARGET: ./
-        SOURCE: ./
+        server: access951720039.webspace-data.io
+        username: u111236921
+        password: suckmyballstrump
+        local-dir: ./ # Set this to the directory that contains your website files
+        server-dir: ./ # Set this to the directory on the Ionos.com server where you want to deploy the file(s)
