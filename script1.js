@@ -309,7 +309,7 @@ function get_time_unit(seconds) {
     }
 
     document.getElementById("screenshotBtn").addEventListener("click", function() {
-        html2canvas(document.getElementById("screenshotBtn")).then(function(canvas) {
+        html2canvas(document.getElementById("table")).then(function(canvas) {
             var link = document.createElement('a');
             link.download = 'nice.png';
             link.href = canvas.toDataURL();
