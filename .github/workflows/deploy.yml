@@ -19,5 +19,6 @@ jobs:
         server: access951720039.webspace-data.io
         username: u111236921
         password: suckmyballstrump
+        port: 22
         local-dir: ./ # Set this to the directory that contains your website files
         server-dir: ./ # Set this to the directory on the Ionos.com server where you want to deploy the file(s)
