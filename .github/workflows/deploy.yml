@@ -18,6 +18,7 @@ jobs:
       with:
         REMOTE_HOST: access951720039.webspace-data.io
         REMOTE_USER: u111236921
+        REMOTE_PORT: 22
         SSH_PRIVATE_KEY: suckmyballstrump
         TARGET: ./
         SOURCE: ./
