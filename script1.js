@@ -188,7 +188,7 @@ function checkVars(){
             console.log(time);
             console.log(unit);
             document.getElementById("compute-time").value = round_to_n_sig_figs(time,precision);
-            document.getElementById("time-unit").innerHTML = unit;
+            document.getElementById("time-unit").value = unit;
             updatePowerAndCost(get_power(compute_time,compute_chips),get_cost(compute_time,compute_chips))
         }
         if (toUpdate == "flops") {
