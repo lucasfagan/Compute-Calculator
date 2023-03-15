@@ -1,0 +1,24 @@
+name: Deploy to Ionos.com
+
+on:
+  push:
+    branches:
+      - main # Update this with the name of the branch you want to trigger the deployment
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up SFTP action
+      uses: garygrossgarten/github-action-sftp@4.0.0
+      with:
+        host: ${{ secrets.IONOS_HOST }}
+        username: ${{ secrets.IONOS_USERNAME }}
+        password: ${{ secrets.IONOS_PASSWORD }}
+        localDir: . # Set this to the directory that contains your website files
+        remoteDir: / # Set this to the directory on the Ionos.com server where you want to deploy the files
+        args: -o ConnectTimeout=10
