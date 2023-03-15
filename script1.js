@@ -305,3 +305,12 @@ function get_time_unit(seconds) {
         document.getElementById('power-consumed').style.display = 'block';
         document.getElementById('estimated-cost').style.display = 'block';
     }
+
+    document.getElementById("screenshotBtn").addEventListener("click", function() {
+        html2canvas(document.getElementById("screenshotBtn")).then(function(canvas) {
+            var link = document.createElement('a');
+            link.download = 'nice.png';
+            link.href = canvas.toDataURL();
+            link.click();
+        });
+    });
