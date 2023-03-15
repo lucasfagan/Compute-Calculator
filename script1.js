@@ -252,7 +252,6 @@ function get_time_unit(seconds) {
     }
 
 }
-//test
 
 
     // const instance = new TransformerFLOPs(throughput=compute_flops, parameters=compute_params, tokens=compute_tokens, time=compute_time, num_chips=compute_chips, utilization=compute_utilization, cost_per_flop=null);
