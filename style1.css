@@ -1,74 +1,73 @@
 body {
-    align-items: center;
-    justify-content: center;
-    background-color: #e4e4e4;
-    font-family: 'Open Sans', sans-serif;
+  align-items: center;
+  justify-content: center;
+  background-color: #e4e4e4;
+  font-family: "Open Sans", sans-serif;
 }
 
-
 .calculator-title {
-    text-align: center;
-  }
-  
-  .calculator-container {
-    margin: 0 auto;
-    width: fit-content;
-    height: auto;
-    box-shadow: 0px 0px 10px #ccc;
-    padding: 20px;
-    border: 2px solid black;
-    border-radius: 5px;
-    background-color: #fff;
-  }
-  
-  table {
-    border-collapse: separate;
-    border-spacing: 10px;
-    margin: 0 auto;
-    font-style: italic;
-  }
-  
-  td {
-    padding: 10px;
-    text-align: right;
-    border-bottom: 1px solid #ddd;
-  }
-  
-  
-  select, input[type="text"] {
-    width: 100%;
-    padding: 5px;
-    border: none;
-    text-align: right;
-  }
-  
-  .dimensionality {
-    margin-left: 5px;
-  }
+  text-align: center;
+}
 
-  tr{
-    border: 1px solid black;
-  }
+.calculator-container {
+  margin: 0 auto;
+  width: fit-content;
+  height: auto;
+  box-shadow: 0px 0px 10px #ccc;
+  padding: 20px;
+  border: 2px solid black;
+  border-radius: 5px;
+  background-color: #fff;
+}
 
-  .dimensionality{
-    font-style: normal;
-    text-align: left !important;
-    font-size: small;
-  }
+table {
+  border-collapse: separate;
+  border-spacing: 10px;
+  margin: 0 auto;
+  font-style: italic;
+}
 
-  .optional_row{
-    display: show;
-  }
+td {
+  padding: 10px;
+  text-align: right;
+  border-bottom: 1px solid #ddd;
+}
 
-  .center-text {
-    text-align: center;
-  }
+select,
+input[type="text"] {
+  width: 100%;
+  padding: 5px;
+  border: none;
+  text-align: right;
+}
+
+.dimensionality {
+  margin-left: 5px;
+}
+
+tr {
+  border: 1px solid black;
+}
+
+.dimensionality {
+  font-style: normal;
+  text-align: left !important;
+  font-size: small;
+}
+
+.optional_row {
+  display: show;
+}
+
+.center-text {
+  text-align: center;
+}
 
 /* centers the button */
 .button {
   display: inline-block;
   position: fixed;
-  left:44%;
+  left: 44%;
   overflow: hidden;
   margin: 0 20px;
   padding: 15px 30px;
