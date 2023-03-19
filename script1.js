@@ -255,36 +255,6 @@ function get_time_unit(seconds) {
 
 }
 
-
-    // const instance = new TransformerFLOPs(throughput=compute_flops, parameters=compute_params, tokens=compute_tokens, time=compute_time, num_chips=compute_chips, utilization=compute_utilization, cost_per_flop=null);
-    // instance.calculateMissingVariable();
-
-    // console.log(instance.parameters);
-    // console.log(instance.tokens);
-    // console.log(instance.throughput);
-    // console.log(instance.num_chips);
-    // console.log(instance.utilization);
-    // console.log(instance.time);
-    // //Vars get updated but don't show in the textbox..    
-    // document.getElementById("params-custom").value = instance.parameters;
-    // document.getElementById("params-tokens").value = instance.tokens;
-    // document.getElementById("compute-custom-input").value = instance.throughput;
-    // document.getElementById("compute-chips").value = instance.num_chips;
-    // document.getElementById("compute-utilization").value = instance.utilization;
-    // document.getElementById("compute-time").value = instance.time;
-
-   // document.getElementById("params-custom").value = instance.parameters;
-   // document.getElementById("params-tokens").value = instance.tokens;
-   // document.getElementById("compute-custom-input").value = instance.throughput;
-   // document.getElementById("compute-chips").value = instance.num_chips;
-   // document.getElementById("compute-utilization").value = instance.utilization;
-   // document.getElementById("compute-time").value = instance.time;
-    
-    
-
-
-
-
     // Calculate power consumed based on time spent training and number of chips
     function get_power(time, chips) {
         // Replace this rate with actual power consumption details
